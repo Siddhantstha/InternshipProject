@@ -19,6 +19,7 @@ namespace Infrastructure.Repositories
         {
             await _dbconnect.Users.AddAsync(entity);
             await _dbconnect.SaveChangesAsync();
+            
         }
 
         public async Task<bool> EmailExistsAsync(string email)
