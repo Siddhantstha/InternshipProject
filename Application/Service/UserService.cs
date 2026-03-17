@@ -43,6 +43,25 @@ namespace Application.Service
             }).ToList();
             return result;
         }
+
+        public async Task<ViewUserDto> GetUserByIdAsync(int id)
+        {
+            var s = await _userrepo.GetUserByIdAsync(id);
+            var result = new ViewUserDto
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Email = s.Email,
+                Role = s.Role,
+                Phone = s.Phone,
+                Address = s.Address,
+                IsDeleted = s.isDeleted,
+                IsActive = s.isActive,
+                IsLocked = s.isLocked
+            };
+            return result;
+        }
+
         public async Task<LoginResponseDto> LoginAsync(LoginUserDto entity)
         {
             var result = await _loginValidator.ValidateAsync(entity);

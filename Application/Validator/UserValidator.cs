@@ -27,7 +27,11 @@ namespace Application.Validator
                 .Matches("[A-Z]").WithMessage("Password must contain an uppercase letter")
                 .Matches("[a-z]").WithMessage("Password must contain a lowercase letter")
                 .Matches("[0-9]").WithMessage("Password must contain a number");
-                
+
+            RuleFor(x => x.ConfirmPassword)
+                .NotEmpty()
+                .Equal(x => x.Password)
+                .WithMessage("Password is incorrect and doesn't match please try it again");
 
             RuleFor(x => x.Role)
               .NotEmpty().WithMessage("Role is required")
@@ -65,6 +69,11 @@ namespace Application.Validator
                 .Matches("[A-Z]").WithMessage("Password must contain an uppercase letter")
                 .Matches("[a-z]").WithMessage("Password must contain a lowercase letter")
                 .Matches("[0-9]").WithMessage("Password must contain a number");
+
+            RuleFor(x => x.ConfirmPassword)
+                .NotEmpty()
+                .Equal(x => x.Password)
+                .WithMessage("Password is incorrect and doesn't match please try it again");
 
             RuleFor(x => x.Phone)
                 .Cascade(CascadeMode.Stop)
@@ -115,7 +124,11 @@ namespace Application.Validator
                 .Matches("[A-Z]").WithMessage("Password must contain an uppercase letter")
                 .Matches("[a-z]").WithMessage("Password must contain a lowercase letter")
                 .Matches("[0-9]").WithMessage("Password must contain a number");
-                
+
+            RuleFor(x => x.ConfirmPassword)
+                .NotEmpty()
+                .Equal(x => x.Password)
+                .WithMessage("Password is incorrect and doesn't match please try it again");
 
             RuleFor(x => x.Phone)
                 .MaximumLength(10).MinimumLength(10).WithMessage("Phone number must contatin 10 numbers")

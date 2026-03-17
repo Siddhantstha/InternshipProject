@@ -10,6 +10,7 @@ namespace Application.Interface
     public interface IUserService
     {
         Task<IEnumerable<ViewUserDto>> GetAllUserAsync();
+        Task<ViewUserDto> GetUserByIdAsync(int id);
         Task<ExecuteResult<bool>> UpdateUserAsync(int userId,UpdateUserDto entity);
         Task<LoginResponseDto> LoginAsync(LoginUserDto entity);
         //Task<ExecuteResult<bool>> ActivateUserAysnc(int id);

@@ -38,14 +38,22 @@ namespace Users.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        [Authorize(Roles = Roles.Customer)]
+        [HttpGet("ViewAll")]
+        [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> View()
         {
             var view = await _userService.GetAllUserAsync();
             return Ok(view);
         }
- 
+        
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, Customer")]
+        public async Task<IActionResult> ViewById(int id)
+        {
+            var view = await _userService.GetUserByIdAsync(id);
+            return Ok(view);
+        }
+
         [HttpPut("{userId}")]
         [Authorize(Roles = Roles.Customer)]
         public async Task<IActionResult> Update(int userId, UpdateUserDto entity)
