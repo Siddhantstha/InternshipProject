@@ -31,7 +31,12 @@ namespace Application.Kafka.Consumer.ConsumerServices
 				BootstrapServers = config["Kafka:BootstrapServers"],
 				GroupId = config["Kafka:ConsumerGroupId"],
 				AutoOffsetReset = AutoOffsetReset.Earliest,
-				EnableAutoCommit = false
+				EnableAutoCommit = false,
+
+				SecurityProtocol = SecurityProtocol.SaslSsl,
+				SaslMechanism = SaslMechanism.Plain,
+				SaslUsername = config["Kafka:ApiKey"],
+				SaslPassword = config["Kafka:ApiSecret"]
 
 			};
 			using var consumer = new ConsumerBuilder<string, string>(consumerConfig).Build();

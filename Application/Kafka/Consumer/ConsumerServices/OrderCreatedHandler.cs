@@ -30,10 +30,10 @@ namespace Application.Kafka.Consumer.ConsumerServices
 			_logger.LogInformation("Processing OrderCreated for User {UserId}", evt.UserId);
 
 			var notification = new EUserNotification
-			{
+			{   Id=evt.UserId,
 				UserId = evt.UserId,
 				Message = evt.Message,
-				CreatedDate = DateTime.Now
+				CreatedDate = DateTime.UtcNow
 			};
 			// ✅ Call your IUserNotification interface
 			await _userNotification.SendNotificationAsync(notification);

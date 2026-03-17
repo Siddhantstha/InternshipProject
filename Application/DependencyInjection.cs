@@ -17,6 +17,7 @@ namespace Application
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IRegisterService, RegisterService>();
+
             return services;
         }
     }

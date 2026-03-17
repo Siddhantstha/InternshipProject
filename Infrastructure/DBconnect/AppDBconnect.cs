@@ -9,6 +9,6 @@ namespace Infrastructure.DBconnect
     public class AppDBconnect(DbContextOptions<AppDBconnect> options) : DbContext(options)
     {
        public DbSet<User> Users {  get; set; }
-       //public DbSet<EUserNotification> EUsers { get; set; }
+        public DbSet<EUserNotification> EUsers { get; set; }
     }
 }

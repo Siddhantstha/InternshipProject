@@ -18,11 +18,11 @@ namespace Infrastructure.Repositories
         }
 	public async Task <EUserNotification> SendNotificationAsync(EUserNotification request)
 		{
-			return new EUserNotification();
-			//var result = await _dbconnect.EUsers.AddAsync(request);
-			//await _dbconnect.SaveChangesAsync();
 
-			//return result.Entity; 
+			var result = await _dbconnect.EUsers.AddAsync(request);
+			await _dbconnect.SaveChangesAsync();
+
+			return result.Entity;
 
 		}
 	}
