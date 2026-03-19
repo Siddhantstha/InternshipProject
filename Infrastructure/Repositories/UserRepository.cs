@@ -48,5 +48,9 @@ namespace Infrastructure.Repositories
             await _dbconnect.SaveChangesAsync();
             return entity;
         }
-    }
+		public async Task<User?> GetCustomerByIdAsync(int customerId)
+		{
+			return await _dbconnect.Users.FirstOrDefaultAsync(x => x.Id == customerId && x.Role == "Customer");
+		}
+	}
 }

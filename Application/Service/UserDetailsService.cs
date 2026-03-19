@@ -17,7 +17,7 @@ namespace Application.Service
 		}
 	public async Task<UserDetailsDto> GetUserAsync(int UserId)
 		{
-			var userId = await _userrepo.GetUserByIdAsync(UserId);
+			var userId = await _userrepo.GetCustomerByIdAsync(UserId);
 			if (userId == null)
 			{
 				return null;
