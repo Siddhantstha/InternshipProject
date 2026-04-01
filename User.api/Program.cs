@@ -81,6 +81,7 @@ builder.Services.AddHostedService<KafkaConsumerService>();
 builder.Services.AddScoped<IOrderCreatedHandler, OrderCreatedHandler>();
 builder.Services.AddScoped<IUserNotification, NotificationRepository>();
 
+
 // Build
 var app = builder.Build();
 

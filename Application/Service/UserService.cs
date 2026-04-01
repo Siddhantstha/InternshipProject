@@ -44,6 +44,17 @@ namespace Application.Service
             return result;
         }
 
+        public async Task<IEnumerable<UserNameDto>> GetAllUserNameAsync()
+        {
+            var result = await _userrepo.GetAllUserNameAsync();
+            var output = result.Select(s => new UserNameDto
+            {
+                Name = s.Name,
+                Email = s.Email,
+            }).ToList();
+            return output;
+        }
+
         public async Task<ViewUserDto> GetUserByIdAsync(int id)
         {
             var s = await _userrepo.GetUserByIdAsync(id);

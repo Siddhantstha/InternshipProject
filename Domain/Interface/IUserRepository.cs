@@ -14,6 +14,6 @@ namespace Domain.Interface
         Task<User?> GetByEmailAsync(string email);
         Task<bool> EmailExistsAsync(string email);
 		Task<User?> GetCustomerByIdAsync(int customerId);
-
-	}
+        Task<IEnumerable<User>> GetAllUserNameAsync();
+    }
 }
