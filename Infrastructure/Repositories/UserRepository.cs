@@ -1,19 +1,26 @@
-﻿using Domain.Entities;
+﻿using Dapper;
+using Domain.Entities;
 using Domain.Interface;
 using Infrastructure.DBconnect;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Application.DTOs.UserDTOs;
 
 namespace Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly AppDBconnect _dbconnect;
-        public UserRepository(AppDBconnect dbconnect)
+        private readonly string _connectionString;
+
+        public UserRepository(AppDBconnect dbconnect, IConfiguration configuration)
         {
             _dbconnect = dbconnect;
+            _connectionString = configuration.GetConnectionString("DefaultConnection"); 
         }
         public async Task AddUserAsync(User entity)
         {
@@ -52,5 +59,14 @@ namespace Infrastructure.Repositories
 		{
 			return await _dbconnect.Users.FirstOrDefaultAsync(x => x.Id == customerId && x.Role == "Customer");
 		}
-	}
+
+        public async Task<IEnumerable<User>> GetAllUserNameAsync()
+        {
+            using var connection = new NpgsqlConnection(_connectionString);
+            await connection.OpenAsync();
+            string sql = @"SELECT name,email FROM ""Users""";
+            var result = await connection.QueryAsync<User>(sql);
+            return result;
+        }
+    }
 }

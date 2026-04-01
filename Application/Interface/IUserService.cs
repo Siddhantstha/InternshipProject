@@ -13,6 +13,7 @@ namespace Application.Interface
         Task<ViewUserDto> GetUserByIdAsync(int id);
         Task<ExecuteResult<bool>> UpdateUserAsync(int userId,UpdateUserDto entity);
         Task<LoginResponseDto> LoginAsync(LoginUserDto entity);
+        Task<IEnumerable<UserNameDto>> GetAllUserNameAsync();
         //Task<ExecuteResult<bool>> ActivateUserAysnc(int id);
         //Task<ExecuteResult<bool>> LockedUserAysnc(int id);
     }

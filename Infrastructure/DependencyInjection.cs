@@ -17,7 +17,7 @@ namespace Infrastructure
             services.AddDbContext<AppDBconnect>(options =>
             {
                 options.UseNpgsql(
-					"Host=localhost;Port=5432;Database=user;Username=postgres;Password=koeJ2449k");
+					"Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=siddhant123");
             });
             services.AddScoped<IUserRepository, UserRepository>();
             return services;

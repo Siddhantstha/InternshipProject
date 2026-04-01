@@ -24,6 +24,13 @@ namespace Users.Api.Controllers
             _registerService = registerService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllUserNameOnly()
+        {
+            var result =await _userService.GetAllUserNameAsync();
+            return Ok(result); 
+        }
+
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterUserDto dto)
         {
