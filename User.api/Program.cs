@@ -6,6 +6,8 @@ using Application.Service;
 using Application.Validator;
 using Domain.Interface;
 using FluentValidation;
+using Infrastructure.DapperConnects;
+
 using Infrastructure.DBconnect;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +19,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Database
 builder.Services.AddDbContext<AppDBconnect>(options =>
 {
-	options.UseNpgsql("Host=localhost;Port=5432;Database=user;Username=postgres;Password=koeJ2449k");
+	options.UseNpgsql(
+	builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddSingleton<DapperContext>();
 // Core Services
 builder.Services.ApiDI();
 builder.Services.AddControllers();
+
+
 builder.Services.AddScoped<IUserDetails, UserDetailsService>();
 builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
 builder.Services.AddScoped<ValidationActionFilterAttribute>();

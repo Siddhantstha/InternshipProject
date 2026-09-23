@@ -23,6 +23,14 @@ namespace Users.Api.Controllers
             _userService = service;
             _registerService = registerService;
         }
+        [HttpGet("email/{email}")]
+        public async Task<IActionResult> ViewByEmail(string email)
+        {
+			var view = await _userService.GetUserByEmailAsync(email);
+			return Ok(view);
+
+		}
+
 
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterUserDto dto)

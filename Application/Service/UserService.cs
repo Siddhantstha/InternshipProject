@@ -17,6 +17,7 @@ namespace Application.Service
         private readonly ITokenService _tokenService;
         private readonly IValidator<UpdateUserDto> _validator;
         private readonly IValidator<LoginUserDto> _loginValidator;
+        
         public UserService(IUserRepository userrepo, IPasswordService passwordService, ITokenService tokenService, IValidator<UpdateUserDto> validator, IValidator<LoginUserDto> loginValidator)
         {
             _userrepo = userrepo;
@@ -44,7 +45,28 @@ namespace Application.Service
             return result;
         }
 
-        public async Task<ViewUserDto> GetUserByIdAsync(int id)
+		
+
+		public async Task<ViewUserDto> GetUserByEmailAsync(string email)
+		{
+
+			var s = await _userrepo.GetUserByEmailAsync(email);
+			var result = new ViewUserDto
+			{
+				Id = s.Id,
+				Name = s.Name,
+				Email = s.Email,
+				Role = s.Role,
+				Phone = s.Phone,
+				Address = s.Address,
+				IsDeleted = s.isDeleted,
+				IsActive = s.isActive,
+				IsLocked = s.isLocked
+			};
+			return result;
+		}
+
+		public async Task<ViewUserDto> GetUserByIdAsync(int id)
         {
             var s = await _userrepo.GetUserByIdAsync(id);
             var result = new ViewUserDto
@@ -180,5 +202,6 @@ namespace Application.Service
             };
 
         }
+    
     }
 }

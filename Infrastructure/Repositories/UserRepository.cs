@@ -1,19 +1,25 @@
-﻿using Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Text;
+using Dapper;
+using Domain.Entities;
 using Domain.Interface;
+using Infrastructure.DapperConnects;
 using Infrastructure.DBconnect;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly AppDBconnect _dbconnect;
-        public UserRepository(AppDBconnect dbconnect)
+        private readonly DapperContext _dapperContext;
+		public UserRepository(AppDBconnect dbconnect,DapperContext dapperContext)
         {
             _dbconnect = dbconnect;
+            _dapperContext = dapperContext;
         }
         public async Task AddUserAsync(User entity)
         {
@@ -51,6 +57,14 @@ namespace Infrastructure.Repositories
 		public async Task<User?> GetCustomerByIdAsync(int customerId)
 		{
 			return await _dbconnect.Users.FirstOrDefaultAsync(x => x.Id == customerId && x.Role == "Customer");
+		}
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            var sql= @"SELECT * FROM ""Users"" WHERE ""Email"" = @Email
+			AND ""isDeleted"" = false";
+
+			using var connection = _dapperContext.CreateConnection();
+            return await connection.QueryFirstOrDefaultAsync<User>(sql, new { Email = email });
 		}
 	}
 }
